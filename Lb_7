@@ -5,136 +5,135 @@
 
 using namespace std;
 
-// 1. Функция для подсчета похожих строк
-void countSimilarRowsTask() 
+// 1. Функція для підрахунку схожих строк
+void countSimilarRowsTask()
 {
-    cout << "\n=== Задание 1: Подсчет строк, похожих на первую ===\n";
+    cout << "\n=== Task 1: Counting lines similar to the first one ===\n";
 
     int M_1, N_1;
-    cout << "Введите количество строк (M) и столбцов (N) матрицы: ";
+    cout << "Enter the number of rows (M) and columns (N) of the matrix: ";
     cin >> M_1 >> N_1;
 
-    if (M_1 <= 0 || N_1 <= 0) 
+    if (M_1 <= 0 || N_1 <= 0)
     {
-        cerr << "Ошибка: M и N должны быть положительными числами!\n";
+        cerr << "Error: M and N must be positive numbers!\n";
         return;
     }
 
     vector<vector<int>> matrix(M_1, vector<int>(N_1));
 
-    cout << "Введите элементы матрицы (числа от 0 до 100):\n";
-    for (int i = 0; i < M_1; ++i) 
+    cout << "Enter the matrix elements (numbers from 0 to 100):\n";
+    for (int i = 0; i < M_1; ++i)
     {
-        for (int j = 0; j < N_1; ++j) 
+        for (int j = 0; j < N_1; ++j)
         {
-            while (!(cin >> matrix[i][j])) 
+            while (!(cin >> matrix[i][j]))
             {
-                cerr << "Ошибка ввода! Введите число от 0 до 100: ";
+                cerr << "Input error! Enter a number between 0 and 100: ";
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
-            if (matrix[i][j] < 0 || matrix[i][j] > 100) 
+            if (matrix[i][j] < 0 || matrix[i][j] > 100)
             {
-                cerr << "Число должно быть от 0 до 100! Повторите ввод: ";
+                cerr << "The number must be between 0 and 100! Repeat input: ";
                 j--;
             }
         }
     }
 
-    if (matrix.empty()) 
+    if (matrix.empty())
     {
-        cout << "Матрица пуста!\n";
+        cout << "The matrix is ​​empty!\n";
         return;
     }
 
-    // Создаем множество элементов первой строки
+    // Створюємо множину елементів першої строки
     unordered_set<int> firstRowSet(matrix[0].begin(), matrix[0].end());
     int count = 0;
 
-    // Сравниваем начиная со второй строки (индекс 1)
-    for (size_t i = 1; i < matrix.size(); ++i) 
+    // Зрівнюємо, починаючи з другої строки (індекс 1)
+    for (size_t i = 1; i < matrix.size(); ++i)
     {
         unordered_set<int> currentRowSet(matrix[i].begin(), matrix[i].end());
-        if (currentRowSet == firstRowSet) 
+        if (currentRowSet == firstRowSet)
         {
             count++;
         }
     }
 
-    cout << "Количество строк, похожих на первую: " << count << "\n";
+    cout << "Number of lines similar to the first: " << count << "\n";
 }
 
-// 2. Функция для обмена половин
-void swapMatrixHalvesTask() 
+// 2. Функція для обміну половин
+void swapMatrixHalvesTask()
 {
-    cout << "\n=== Задание 2: Обмен левой и правой половин матрицы ===\n";
+    cout << "\n=== Task 2: Exchange of the left and right halves of the matrix ===\n";
 
     int M_2, N_2;
-    cout << "Введите количество строк (M) и столбцов (N, должно быть четным): ";
+    cout << "Enter the number of rows (M) and columns (N, must be even): ";
     cin >> M_2 >> N_2;
 
-    if (M_2 <= 0 || N_2 <= 0) 
+    if (M_2 <= 0 || N_2 <= 0)
     {
-        cerr << "Ошибка: M и N должны быть положительными числами!\n";
+        cerr << "Error: M and N must be positive numbers!\n";
         return;
     }
 
-    if (N_2 % 2 != 0) 
+    if (N_2 % 2 != 0)
     {
-        cerr << "Ошибка: N должно быть четным числом!\n";
+        cerr << "Error: N must be an even number!\n";
         return;
     }
 
     vector<vector<int>> matrix(M_2, vector<int>(N_2));
 
-    cout << "Введите элементы матрицы:\n";
-    for (int i = 0; i < M_2; ++i) 
+    cout << "Enter the elements of the matrix:\n";
+    for (int i = 0; i < M_2; ++i)
     {
-        for (int j = 0; j < N_2; ++j) 
+        for (int j = 0; j < N_2; ++j)
         {
             cin >> matrix[i][j];
         }
     }
 
-    cout << "\nИсходная матрица:\n";
-    for (const auto& row : matrix) 
+    cout << "\nOriginal matrix:\n";
+    for (const auto& row : matrix)
     {
         for (int num : row) cout << num << " ";
         cout << "\n";
     }
 
     int half = N_2 / 2;
-    for (int i = 0; i < M_2; ++i) 
+    for (int i = 0; i < M_2; ++i)
     {
-        for (int j = 0; j < half; ++j) 
+        for (int j = 0; j < half; ++j)
         {
             swap(matrix[i][j], matrix[i][j + half]);
         }
     }
 
-    cout << "\nМатрица после обмена половин:\n";
-    for (const auto& row : matrix) 
+    cout << "\nMatrix after swapping halves:\n";
+    for (const auto& row : matrix)
     {
         for (int num : row) cout << num << " ";
         cout << "\n";
     }
 }
 
-int main() 
+int main()
 {
-    setlocale(LC_ALL, "rus");
     int choice;
 
-    do 
+    do
     {
-        cout << "\nВыберите задание:\n"
-            << "1. Подсчет строк, похожих на первую\n"
-            << "2. Обмен левой и правой половин матрицы\n"
-            << "0. Выход\n"
-            << "Ваш выбор: ";
+        cout << "\nSelect a task:\n"
+            << "1. Count rows similar to the first\n"
+            << "2. Swap the left and right halves of the matrix\n"
+            << "0. Exit\n"
+            << "Your choice: ";
         cin >> choice;
 
-        switch (choice) 
+        switch (choice)
         {
         case 1:
             countSimilarRowsTask();
@@ -143,10 +142,10 @@ int main()
             swapMatrixHalvesTask();
             break;
         case 0:
-            cout << "Выход из программы.\n";
+            cout << "Exiting the program.\n";
             break;
         default:
-            cout << "Неверный выбор! Попробуйте еще раз.\n";
+            cout << "Wrong choice! Try again.\n";
         }
     } while (choice != 0);
 
